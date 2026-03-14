@@ -151,7 +151,7 @@ if (isset($_FixWeb) && $_FixWeb == 1) {
                                         <div class="my-2">
                                             <a href="<?= $_Zalo ?>"
                                                 class="btn btn-menu btn-danger w-100 fw-semibold my-1">Box
-                                                Zalo</a>
+                                                Zalo 2</a>
 
                                         </div>
                                     </div>

@@ -217,7 +217,7 @@ Hướng dẫn sử dụng Mod
 <li>PvP và săn boss</li>
 </ul>
 
-<h5 class="fw-bold mt-3">Tính Năng</h5>
+<h5 class="fw-bold mt-3">Tính Năng Game</h5>
 
 <ul>
 <li>Đồ họa 2D nhẹ</li>
