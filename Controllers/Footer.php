@@ -10,7 +10,7 @@
                 <div class="text-center fw-semibold">
                     <div class="mb-2" style="font-size: 14px;">THÔNG BÁO</div>
                     <div class="mb-2" style="font-size: 11px;">Chào mừng đến với máy chủ<br> <strong>Ngọc Rồng
-                            AD</strong><br> Tham gia ngay Box Zalo để nhận thông báo nhé !!
+                            BT</strong><br> Tham gia ngay Box Zalo để nhận thông báo nhé !!
                     </div>
 
                     <div class="mt-2">
