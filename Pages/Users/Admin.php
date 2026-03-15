@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $statement_insert->bindParam(':noidung', $username);
                     $statement_insert->execute();
 
-                    echo '<script>window.location.href="Admin"</script>';
+                    echo '<script>window.location.href="/Admin"</script>';
 
                 } else {
 
