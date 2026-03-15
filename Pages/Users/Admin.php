@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $statement_insert->bindParam(':noidung', $username);
                     $statement_insert->execute();
 
-                    header("Location: " . $_SERVER['REQUEST_URI']);
+                    echo '<script>window.location.href="' . $_SERVER['REQUEST_URI'] . '"</script>';
 exit;
 
                 } else {
