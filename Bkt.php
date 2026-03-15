@@ -8,9 +8,7 @@ include 'Controllers/Header.php';
 <head>
 
 <meta charset="UTF-8">
-
 <link href="/Assets/Css/bootstrap.min.css" rel="stylesheet">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="/Assets/Js/ThreeCanvas.js"></script>
@@ -43,10 +41,12 @@ height:auto;
 .copybtn{
 margin-top:10px;
 }
+
 @media (max-width: 600px){
 .bktne{
 max-width:300px;
 }
+
 }
 
 </style>
@@ -72,17 +72,11 @@ Lưu ý: kiểm tra username nhân vật trong game hoặc trang tài khoản v�
 </p>
 
 <h5 style="color:red">
-
 nap + tên tài khoản
-
 </h5>
 
 <p>
-
-Ví dụ:
-
-<b>nap_tentaikhoan</b>
-
+Ví dụ: <b>nap_tentaikhoan</b>
 </p>
 
 <?php
@@ -92,6 +86,7 @@ $username = $_SESSION['account'] ?? '';
 <div style="margin-top:10px">
 
 <b>Tài khoản của bạn:</b>
+
 <span id="username">
 <?php echo $username; ?>
 </span>
@@ -99,14 +94,28 @@ $username = $_SESSION['account'] ?? '';
 </div>
 
 <button class="btn btn-primary copybtn" onclick="copyNoiDung()">
-
 Copy nội dung chuyển khoản
-
 </button>
+
+<hr>
+
+<h5>Chọn số tiền nạp</h5>
+
+<select class="form-control" id="amount" onchange="genQR()">
+
+<option value="">-- Chọn số tiền --</option>
+<option value="20000">20,000 VNĐ</option>
+<option value="50000">50,000 VNĐ</option>
+<option value="100000">100,000 VNĐ</option>
+<option value="200000">200,000 VNĐ</option>
+<option value="500000">500,000 VNĐ</option>
+<option value="1000000">1,000,000 VNĐ</option>
+
+</select>
 
 <div style="margin-top:20px">
 
-<img class="bktne" src="/Assets/Images/QR.png?v=<?php echo time(); ?>">
+<img id="qrimg" class="bktne" style="display:none">
 
 </div>
 
@@ -133,9 +142,8 @@ alert("Không tìm thấy Username người chơi");
 return;
 }
 
-var text = "nap " + username;
+var text = "nap_" + username;
 
-// tạo input tạm để copy
 var temp = document.createElement("input");
 temp.value = text;
 document.body.appendChild(temp);
@@ -146,6 +154,28 @@ document.body.removeChild(temp);
 alert("Đã copy: " + text);
 
 }
+
+function genQR(){
+
+var amount = document.getElementById("amount").value;
+var username = document.getElementById("username").innerText.trim();
+
+if(amount == ""){
+document.getElementById("qrimg").style.display = "none";
+return;
+}
+
+var content = "nap_" + username;
+
+var url = "https://qr.sepay.vn/img?acc=00352924355&bank=TPBank&amount="+amount+"&des="+encodeURIComponent(content);
+
+var qr = document.getElementById("qrimg");
+
+qr.src = url;
+qr.style.display = "block";
+
+}
+
 </script>
 
 <?php
