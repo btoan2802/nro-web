@@ -75,13 +75,13 @@ Lưu ý: kiểm tra username nhân vật trong game hoặc trang tài khoản v�
 nap + tên tài khoản
 </h5>
 
-<p>
-Ví dụ: <b>nap_tentaikhoan</b>
-</p>
-
 <?php
 $username = $_SESSION['account'] ?? '';
 ?>
+
+<p>
+Ví dụ: <b>nap <?php echo $username; ?></b>
+</p>
 
 <div style="margin-top:10px">
 
@@ -104,6 +104,7 @@ Copy nội dung chuyển khoản
 <select class="form-control" id="amount" onchange="genQR()">
 
 <option value="">-- Chọn số tiền --</option>
+<option value="10000">10,000 VNĐ</option>
 <option value="20000">20,000 VNĐ</option>
 <option value="50000">50,000 VNĐ</option>
 <option value="100000">100,000 VNĐ</option>
@@ -142,7 +143,7 @@ alert("Không tìm thấy Username người chơi");
 return;
 }
 
-var text = "nap_" + username;
+var text = "nap " + username;
 
 var temp = document.createElement("input");
 temp.value = text;
@@ -165,7 +166,7 @@ document.getElementById("qrimg").style.display = "none";
 return;
 }
 
-var content = "nap_" + username;
+var content = "nap " + username;
 
 var url = "https://qr.sepay.vn/img?acc=00352924355&bank=TPBank&amount="+amount+"&des="+encodeURIComponent(content);
 
