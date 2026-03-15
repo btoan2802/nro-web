@@ -369,7 +369,7 @@
 <footer class="pt-4 pt-md-5 border-top">
     <div class="text-center">
 
-        <p class="fw-bold">Copyright by barcoll - Chơi game quá 180 phút mỗi ngày sẽ gây ra hiện tượng nghiện
+        <p class="fw-bold">Copyright by Btoan - Chơi game quá 180 phút mỗi ngày sẽ gây ra hiện tượng nghiện
             game.</p>
 
     </div>
