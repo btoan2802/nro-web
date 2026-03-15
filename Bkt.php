@@ -101,9 +101,9 @@ Copy nội dung chuyển khoản
 
 <h5>Chọn số tiền nạp</h5>
 
-<select class="form-control" id="amount" onchange="genQR()">
+<select class="form-control mb-3" id="amount" onchange="genQR()">
 
-<option value="">-- Chọn số tiền --</option>
+<option value="">-- Chọn nhanh số tiền --</option>
 <option value="10000">10,000 VNĐ</option>
 <option value="20000">20,000 VNĐ</option>
 <option value="50000">50,000 VNĐ</option>
@@ -114,6 +114,16 @@ Copy nội dung chuyển khoản
 
 </select>
 
+<h6>Hoặc nhập số tiền tùy ý</h6>
+
+<input 
+type="number" 
+class="form-control" 
+id="custom_amount"
+placeholder="Nhập số tiền muốn nạp (VD: 75000)"
+oninput="genQR()"
+>
+
 <div style="margin-top:20px">
 
 <img id="qrimg" class="bktne" style="display:none">
@@ -121,9 +131,7 @@ Copy nội dung chuyển khoản
 </div>
 
 <p style="margin-top:10px">
-
 Sau khi chuyển khoản hệ thống sẽ tự động cộng tiền trong vòng 5-10 giây.
-
 </p>
 
 </div>
@@ -156,12 +164,17 @@ alert("Đã copy: " + text);
 
 }
 
+
 function genQR(){
 
-var amount = document.getElementById("amount").value;
 var username = document.getElementById("username").innerText.trim();
 
-if(amount == ""){
+var dropdown = document.getElementById("amount").value;
+var custom = document.getElementById("custom_amount").value;
+
+var amount = custom ? custom : dropdown;
+
+if(amount == "" || amount <= 0){
 document.getElementById("qrimg").style.display = "none";
 return;
 }
