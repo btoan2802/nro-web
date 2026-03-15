@@ -15,6 +15,7 @@ if (isset($_FixWeb) && $_FixWeb == 1) {
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
+    <base href="/">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -131,7 +132,7 @@ if (isset($_FixWeb) && $_FixWeb == 1) {
                         </div>
                         <div class="col">
                             <div class="px-2"><a class="btn btn-menu btn-success w-100 fw-semibold false"
-                                    href="Bkt.php">Nạp Tiền</a></div>
+                                    href="/Bkt.php">Nạp Tiền</a></div>
                         </div>
 
                         <div class="col">
