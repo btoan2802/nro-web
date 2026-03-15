@@ -36,8 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             } else {
 
-                $sql_update = "UPDATE account 
-                SET vnd = vnd + :cash, danap = danap + :cash, cong_tien = cong_tien + :cash
+                $sql_update = "UPDATE account SET 
+                vnd = vnd + :cash,
+                tong_nap_moc_game = tong_nap_moc_game + :cash,
+                tong_nap_server = tong_nap_server + :cash,
+                danap = danap + :cash
                 WHERE username = :username";
 
                 $statement_update = $conn->prepare($sql_update);
