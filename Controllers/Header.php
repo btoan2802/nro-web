@@ -162,9 +162,12 @@ if (isset($_FixWeb) && $_FixWeb == 1) {
                     </div>
                 </div>
                 <script>
-                    document.getElementById("banner").addEventListener("click", function () {
-                        window.location.href = "/"; // Chuyển hướng đến trang chủ khi nhấp vào hình ảnh
-                    });
+                    const banner = document.getElementById("banner");
+if (banner) {
+    banner.addEventListener("click", function () {
+        window.location.href = "/";
+    });
+}
                 </script>
 
                 <script>
