@@ -97,7 +97,7 @@ padding:6px 10px;
 
 }
 
-#chuyensinh1,#boss1,#nhiemvu1,#banghoi1, #caothu1{
+#chuyensinh1,#boss1,#nhiemvu1,#leothap,#banghoi1, #caothu1{
 
 display:none;
 }
@@ -115,7 +115,7 @@ display:none;
 
 <button class="btn fw-semibold" style="background:#6f42c1;color:#fff;" id="chuyensinh">Chuyển Sinh</button>
 <button class="btn fw-semibold active" style="background:#dc3545;color:#fff;" id="luong">Top Nạp</button>
-<button class="btn fw-semibold" style="background:#0dcaf0;color:#000;" id="nhiemvu">Nhiệm Vụ</button>
+<button class="btn fw-semibold" style="background:#0dcaf0;color:#000;" id="leothap">Leo Tháp</button>
 <button class="btn fw-semibold" style="background:#20c997;color:#000;" id="banghoi">Bang Hội</button>
 
 </div>
