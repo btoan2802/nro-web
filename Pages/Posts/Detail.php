@@ -1,13 +1,14 @@
 <?php
-require_once 'Controllers/Connections.php';
-require_once 'Controllers/Sessions.php';
-require_once 'Controllers/Configs.php';
+// 🔥 FIX include CHUẨN - không ảnh hưởng file khác
+require_once __DIR__ . '/../../Controllers/Connections.php';
+require_once __DIR__ . '/../../Controllers/Sessions.php';
+require_once __DIR__ . '/../../Controllers/Configs.php';
 
 // 🔥 lấy id từ URL
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($id <= 0) {
-    die("Bài viết không hợp lệ");
+    die("ID không hợp lệ");
 }
 
 // 🔥 lấy bài viết
@@ -15,15 +16,16 @@ $stmt = $conn->prepare("SELECT * FROM post WHERE id = :id LIMIT 1");
 $stmt->execute(['id' => $id]);
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// 🔥 nếu không có bài
 if (!$post) {
-    die("Không tìm thấy bài viết");
+    die("Bài viết không tồn tại");
 }
 
-// 🔥 tăng lượt xem
-$conn->prepare("UPDATE post SET luotxem = luotxem + 1 WHERE id = :id")
-     ->execute(['id' => $id]);
-?>
+// 🔥 tăng lượt xem (FIX dấu ] đúng)
+$update = $conn->prepare("UPDATE post SET luotxem = luotxem + 1 WHERE id = :id");
+$update->execute(['id' => $id]);
 
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -37,22 +39,22 @@ $conn->prepare("UPDATE post SET luotxem = luotxem + 1 WHERE id = :id")
             background: #0f172a;
             color: #fff;
         }
-        .post-container {
-            background: rgba(0,0,0,0.6);
+        .post-box {
+            background: rgba(235, 229, 229, 0.6);
             border: 2px solid #3aa0ff;
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
         }
-        .post-title {
-            color: #ffd43b;
-            font-weight: bold;
+        .title {
             font-size: 26px;
+            font-weight: bold;
+            color: #ffd43b;
         }
         .meta {
-            color: #ccc;
             font-size: 14px;
-            margin-bottom: 15px;
+            color: #ccc;
+            margin-bottom: 10px;
         }
         .content {
             line-height: 1.8;
@@ -68,16 +70,16 @@ $conn->prepare("UPDATE post SET luotxem = luotxem + 1 WHERE id = :id")
 
 <div class="container">
 
-    <?php include 'Controllers/Header.php'; ?>
+    <?php include __DIR__ . '/../../Controllers/Header.php'; ?>
 
-    <div class="post-container">
+    <div class="post-box">
 
-        <!-- 🔥 tiêu đề -->
-        <div class="post-title">
+        <!-- tiêu đề -->
+        <div class="title">
             <?= htmlspecialchars($post['tieude']) ?>
         </div>
 
-        <!-- 🔥 meta -->
+        <!-- thông tin -->
         <div class="meta">
             📅 <?= date("d/m/Y H:i", strtotime($post['ngaytao'])) ?> |
             👁 <?= number_format($post['luotxem'] + 1) ?> lượt xem
@@ -85,14 +87,14 @@ $conn->prepare("UPDATE post SET luotxem = luotxem + 1 WHERE id = :id")
 
         <hr>
 
-        <!-- 🔥 nội dung (cho phép HTML) -->
+        <!-- nội dung (HTML giữ nguyên) -->
         <div class="content">
             <?= $post['noidung'] ?>
         </div>
 
     </div>
 
-    <?php include 'Controllers/Footer.php'; ?>
+    <?php include __DIR__ . '/../../Controllers/Footer.php'; ?>
 
 </div>
 
