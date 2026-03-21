@@ -261,7 +261,7 @@ Xem thêm
 </div>
 </div>
 </div>
-
+<?php include 'Pages/Posts/List.php'; ?>
 <?php include 'Controllers/Footer.php'; ?>
 
 </div>
