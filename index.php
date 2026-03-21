@@ -148,6 +148,12 @@ width:60px;
 
 <h5 class="card-title">Trang chủ</h5>
 
+<?php
+$result = $conn->query("SELECT COUNT(*) as total FROM post");
+$row = $result->fetch_assoc();
+echo "Số bài: " . $row['total'];
+?>
+
 <?php include 'Pages/Others/Top.php'; ?>
 
 <div class="mt-4">
@@ -192,6 +198,8 @@ Hướng dẫn sử dụng Mod
 </div>
 
 <hr>
+
+<?php include 'Pages/Posts/List.php'; ?>
 
 <h4 class="fw-bold">Giới Thiệu</h4>
 
@@ -252,7 +260,7 @@ Hướng dẫn sử dụng Mod
 
 <div class="text-center mt-3">
 
-<a href="./ai/index.html" class="btn btn-primary">
+<a href="" class="btn btn-primary">
 Xem thêm
 </a>
 
@@ -261,7 +269,7 @@ Xem thêm
 </div>
 </div>
 </div>
-<?php include 'Pages/Posts/List.php'; ?>
+
 <?php include 'Controllers/Footer.php'; ?>
 
 </div>
