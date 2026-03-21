@@ -8,7 +8,6 @@ function convertNumberToText($number) {
 ?>
 
 <style>
-
 .main{ color:#fff; }
 
 .card{
@@ -87,21 +86,16 @@ background:rgba(63,169,255,0.35);
 }
 
 @media (max-width:768px){
-
 .table{ font-size:12px; }
-
 .btn-group button{
 font-size:12px;
 padding:6px 10px;
 }
-
 }
 
-#chuyensinh1,#boss1,#nhiemvu1,#banghoi1, #caothu1{
-
+#chuyensinh1,#boss1,#nhiemvu1,#banghoi1,#caothu1{
 display:none;
 }
-
 </style>
 
 <div class="main">
@@ -115,7 +109,7 @@ display:none;
 
 <button class="btn fw-semibold" style="background:#6f42c1;color:#fff;" id="chuyensinh">Chuyển Sinh</button>
 <button class="btn fw-semibold active" style="background:#dc3545;color:#fff;" id="luong">Top Nạp</button>
-<button class="btn fw-semibold" style="background:#0dcaf0;color:#000;" id="nhiemvu">Nhiệm Vụ</button>
+<button class="btn fw-semibold" style="background:#0dcaf0;color:#000;" id="nhiemvu">Leo Tháp</button>
 <button class="btn fw-semibold" style="background:#20c997;color:#000;" id="banghoi">Bang Hội</button>
 
 </div>
@@ -124,7 +118,6 @@ display:none;
 <div class="table-wrapper">
 
 <!-- TOP NẠP -->
-
 <?php
 $query="SELECT player.name AS character_name,account.tong_nap_server AS danap
 FROM account
@@ -140,9 +133,7 @@ echo '<table class="table table-striped table-hover table-bordered mt-3 text-cen
 echo '<thead><tr><th>TOP</th><th>Nhân vật</th><th>Tổng Nạp</th></tr></thead><tbody>';
 
 $stt=1;
-
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-
 $name=!empty($row['character_name'])?$row['character_name']:'Chưa tạo nhân vật';
 $nap=convertNumberToText($row['danap']);
 
@@ -159,126 +150,35 @@ echo "<tr>
 
 $stt++;
 }
-
 echo '</tbody></table>';
 ?>
+
 <!-- TOP CHUYỂN SINH -->
-
-<table class="table table-striped table-hover table-bordered mt-3 text-center" id="chuyensinh1">
-
-<thead>
-<tr>
-<th>TOP</th>
-<th>Nhân vật</th>
-<th>Chuyển Sinh</th>
-</tr>
-</thead>
-
+<table class="table" id="chuyensinh1">
+<thead><tr><th>TOP</th><th>Nhân vật</th><th>Chuyển Sinh</th></tr></thead>
 <tbody>
-
 <?php
-
-$query="
-SELECT 
-player.name,
+$query="SELECT player.name,
 CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(player.chuyen_sinh_su_phu,'[',-1),',',1) AS UNSIGNED) AS chuyensinh
 FROM player
 JOIN account ON player.account_id = account.id
 WHERE account.is_admin = 0
-ORDER BY chuyensinh DESC
-LIMIT 20
-";
+ORDER BY chuyensinh DESC LIMIT 20";
 
 $stmt=$conn->prepare($query);
 $stmt->execute();
 
 $stt=1;
-
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-
-$name=htmlspecialchars($row['name']);
-$rebirth=$row['chuyensinh'];
-
-$class='';
-if($stt==1) $class='top-1';
-elseif($stt==2) $class='top-2';
-elseif($stt==3) $class='top-3';
-
-echo "<tr>
-<td class='{$class}'>{$stt}</td>
-<td class='{$class}'>{$name}</td>
-<td class='{$class}'>{$rebirth}</td>
-</tr>";
-
+echo "<tr><td>{$stt}</td><td>{$row['name']}</td><td>{$row['chuyensinh']}</td></tr>";
 $stt++;
-
 }
-
 ?>
-
 </tbody>
 </table>
 
-
-<!-- TOP SỨC MẠNH -->
-
-<table class="table table-striped table-hover table-bordered mt-3 text-center" id="caothu1">
-<thead>
-<tr>
-<th>TOP</th>
-<th>Nhân vật</th>
-<th>Sức Mạnh</th>
-</tr>
-</thead>
-<tbody>
-
-<?php
-
-$query="SELECT player.name,data_point
-FROM player
-JOIN account ON player.account_id = account.id
-WHERE account.is_admin = 0";
-
-$stmt=$conn->prepare($query);
-$stmt->execute();
-
-$players=[];
-
-while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-
-$data_point=explode(',',$row['data_point']);
-$power=isset($data_point[1])?(int)$data_point[1]:0;
-
-$players[]=[
-'name'=>htmlspecialchars($row['name']),
-'power'=>$power
-];
-}
-
-usort($players,function($a,$b){
-return $b['power']-$a['power'];
-});
-
-$stt=1;
-
-foreach(array_slice($players,0,20) as $player){
-
-echo "<tr>
-<td>{$stt}</td>
-<td>{$player['name']}</td>
-<td>".convertNumberToText($player['power'])."</td>
-</tr>";
-
-$stt++;
-}
-
-?>
-
-</tbody>
-</table>
-
-<!-- TOP NHIỆM VỤ -->
-
+<!-- TOP NHIỆM VỤ (ĐÃ COMMENT) -->
+<!--
 <table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
 <thead>
 <tr>
@@ -290,71 +190,57 @@ $stt++;
 </tr>
 </thead>
 <tbody>
+-->
+
+<!-- TOP LEO THÁP -->
+<table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
+<thead>
+<tr>
+<th>TOP</th>
+<th>Nhân vật</th>
+<th>Tầng</th>
+<th>Thời gian</th>
+</tr>
+</thead>
+<tbody>
 
 <?php
 
-$query="SELECT player.name,data_task
+$query="
+SELECT player.name, player.levelKill_leothap, player.timeKill_leothap
 FROM player
 JOIN account ON player.account_id = account.id
-WHERE account.is_admin = 0";
+WHERE account.is_admin = 0
+ORDER BY CAST(player.levelKill_leothap AS UNSIGNED) DESC,
+         CAST(player.timeKill_leothap AS UNSIGNED) ASC
+LIMIT 20
+";
 
 $stmt=$conn->prepare($query);
 $stmt->execute();
 
-$tasks=[];
+$stt=1;
 
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 
-$data_task = trim($row['data_task'],'[]');
-$data_task = explode(',', $data_task);
+$name = htmlspecialchars($row['name']);
+$level = (int)$row['levelKill_leothap'];
+$time = (int)$row['timeKill_leothap'];
+$seconds = floor($time / 1000);
 
-$count = isset($data_task[0]) ? (int)$data_task[0] : 0;
-$task_main = isset($data_task[1]) ? (int)$data_task[1] : 0;
-$task_sub = isset($data_task[2]) ? (int)$data_task[2] : 0;
-
-$q="SELECT NAME,max_count 
-FROM task_sub_template 
-WHERE task_main_id=? 
-LIMIT 1 OFFSET ".$task_sub;
-
-$s=$conn->prepare($q);
-$s->execute([$task_main]);
-
-$taskInfo=$s->fetch(PDO::FETCH_ASSOC);
-
-$task_name = $taskInfo['NAME'] ?? 'Không rõ';
-$max_count = $taskInfo['max_count'] ?? 0;
-
-$tasks[]=[
-'name'=>htmlspecialchars($row['name']),
-'id'=>$task_main,
-'task_name'=>$task_name,
-'count'=>$count,
-'max'=>$max_count
-];
-
-}
-
-usort($tasks,function($a,$b){
-return $b['id']-$a['id'];
-});
-
-$stt=1;
-
-foreach(array_slice($tasks,0,20) as $task){
-
-$progress=$task['count']."/".$task['max'];
+$class='';
+if($stt==1) $class='top-1';
+elseif($stt==2) $class='top-2';
+elseif($stt==3) $class='top-3';
 
 echo "<tr>
-<td>{$stt}</td>
-<td>{$task['name']}</td>
-<td>{$task['id']}</td>
-<td>{$task['task_name']}</td>
-<td>{$progress}</td>
+<td class='{$class}'>{$stt}</td>
+<td class='{$class}'>{$name}</td>
+<td class='{$class}'>{$level}</td>
+<td class='{$class}'>{$seconds} giây</td>
 </tr>";
 
 $stt++;
-
 }
 
 ?>
@@ -363,37 +249,17 @@ $stt++;
 </table>
 
 <!-- TOP BANG HỘI -->
-
-<table class="table table-striped table-hover table-bordered mt-3 text-center" id="banghoi1">
-<thead>
-<tr>
-<th>TOP</th>
-<th>Bang Hội</th>
-<th>Cấp</th>
-<th>Điểm</th>
-<th>Thành viên</th>
-</tr>
-</thead>
+<table class="table" id="banghoi1">
+<thead><tr><th>TOP</th><th>Bang Hội</th><th>Cấp</th><th>Điểm</th><th>Thành viên</th></tr></thead>
 <tbody>
-
 <?php
-
-$query="SELECT 
-NAME,
-LEVEL,
-clan_point,
-JSON_LENGTH(members) AS member_count,
-max_member
-FROM clan_sv1
-ORDER BY clan_point DESC
-LIMIT 20";
+$query="SELECT NAME,LEVEL,clan_point,JSON_LENGTH(members) AS member_count,max_member
+FROM clan_sv1 ORDER BY clan_point DESC LIMIT 20";
 $stmt=$conn->prepare($query);
 $stmt->execute();
 
 $stt=1;
-
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-
 echo "<tr>
 <td>{$stt}</td>
 <td>{$row['NAME']}</td>
@@ -401,13 +267,9 @@ echo "<tr>
 <td>{$row['clan_point']}</td>
 <td>{$row['member_count']}/{$row['max_member']}</td>
 </tr>";
-
 $stt++;
-
 }
-
 ?>
-
 </tbody>
 </table>
 
@@ -417,27 +279,20 @@ $stt++;
 </div>
 
 <script>
-
 document.addEventListener("DOMContentLoaded", function(){
-
 const tables={
 chuyensinh:"chuyensinh1",
-boss:"boss1",
 luong:"luong1",
 nhiemvu:"nhiemvu1",
 banghoi:"banghoi1"
 };
 
 Object.keys(tables).forEach(id=>{
-
 const btn=document.getElementById(id);
-
 if(!btn) return;
 
 btn.addEventListener("click",function(){
-
 document.querySelectorAll('.btn-group button').forEach(btn=>btn.classList.remove('active'));
-
 this.classList.add('active');
 
 Object.values(tables).forEach(tableId=>{
@@ -445,13 +300,8 @@ const table=document.getElementById(tableId);
 if(table) table.style.display="none";
 });
 
-const showTable=document.getElementById(tables[id]);
-if(showTable) showTable.style.display="table";
-
+document.getElementById(tables[id]).style.display="table";
 });
-
 });
-
 });
-
 </script>
