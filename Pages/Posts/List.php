@@ -2,7 +2,7 @@
 $sql = "SELECT * FROM post ORDER BY id DESC LIMIT 5";
 $result = $conn->query($sql);
 
-while ($row = $result->fetch_assoc()):
+while ($row =$result->fetch(PDO::FETCH_ASSOC)):
 ?>
 
 <div class="post-item align-items-center my-2">

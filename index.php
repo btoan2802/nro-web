@@ -1,4 +1,5 @@
 ﻿<?php
+
 require_once 'Controllers/Connections.php';
 require_once 'Controllers/Sessions.php';
 require_once 'Controllers/Configs.php';
@@ -150,7 +151,7 @@ width:60px;
 
 <?php
 $result = $conn->query("SELECT COUNT(*) as total FROM post");
-$row = $result->fetch_assoc();
+$row = $result->fetch(PDO::FETCH_ASSOC);
 echo "Số bài: " . $row['total'];
 ?>
 
