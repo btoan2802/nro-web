@@ -280,89 +280,96 @@ $stt++;
 <!-- TOP NHIỆM VỤ -->
  
 
-                    <!-- <table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
-                    <thead>
-                    <tr>
-                    <th>TOP</th>
-                    <th>Nhân vật</th>
-                    <th>ID nhiệm vụ</th>
-                    <th>Tên nhiệm vụ</th>
-                    <th>Tiến độ</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                    <!-- TOP NHIỆM VỤ (ĐÃ COMMENT - KHÔNG XOÁ) -->
 
-                    <?php
+<!--
+<table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
+<thead>
+<tr>
+<th>TOP</th>
+<th>Nhân vật</th>
+<th>ID nhiệm vụ</th>
+<th>Tên nhiệm vụ</th>
+<th>Tiến độ</th>
+</tr>
+</thead>
+<tbody>
 
-                    $query="SELECT player.name,data_task
-                    FROM player
-                    JOIN account ON player.account_id = account.id
-                    WHERE account.is_admin = 0";
+<?php
 
-                    $stmt=$conn->prepare($query);
-                    $stmt->execute();
+$query="SELECT player.name,data_task
+FROM player
+JOIN account ON player.account_id = account.id
+WHERE account.is_admin = 0";
 
-                    $tasks=[];
+$stmt=$conn->prepare($query);
+$stmt->execute();
 
-                    while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+$tasks=[];
 
-                    $data_task = trim($row['data_task'],'[]');
-                    $data_task = explode(',', $data_task);
+while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 
-                    $count = isset($data_task[0]) ? (int)$data_task[0] : 0;
-                    $task_main = isset($data_task[1]) ? (int)$data_task[1] : 0;
-                    $task_sub = isset($data_task[2]) ? (int)$data_task[2] : 0;
+$data_task = trim($row['data_task'],'[]');
+$data_task = explode(',', $data_task);
 
-                    $q="SELECT NAME,max_count 
-                    FROM task_sub_template 
-                    WHERE task_main_id=? 
-                    LIMIT 1 OFFSET ".$task_sub;
+$count = isset($data_task[0]) ? (int)$data_task[0] : 0;
+$task_main = isset($data_task[1]) ? (int)$data_task[1] : 0;
+$task_sub = isset($data_task[2]) ? (int)$data_task[2] : 0;
 
-                    $s=$conn->prepare($q);
-                    $s->execute([$task_main]);
+$q="SELECT NAME,max_count 
+FROM task_sub_template 
+WHERE task_main_id=? 
+LIMIT 1 OFFSET ".$task_sub;
 
-                    $taskInfo=$s->fetch(PDO::FETCH_ASSOC);
+$s=$conn->prepare($q);
+$s->execute([$task_main]);
 
-                    $task_name = $taskInfo['NAME'] ?? 'Không rõ';
-                    $max_count = $taskInfo['max_count'] ?? 0;
+$taskInfo=$s->fetch(PDO::FETCH_ASSOC);
 
-                    $tasks[]=[
-                    'name'=>htmlspecialchars($row['name']),
-                    'id'=>$task_main,
-                    'task_name'=>$task_name,
-                    'count'=>$count,
-                    'max'=>$max_count
-                    ];
+$task_name = $taskInfo['NAME'] ?? 'Không rõ';
+$max_count = $taskInfo['max_count'] ?? 0;
 
-                    }
+$tasks[]=[
+'name'=>htmlspecialchars($row['name']),
+'id'=>$task_main,
+'task_name'=>$task_name,
+'count'=>$count,
+'max'=>$max_count
+];
 
-                    usort($tasks,function($a,$b){
-                    return $b['id']-$a['id'];
-                    });
+}
 
-                    $stt=1;
+usort($tasks,function($a,$b){
+return $b['id']-$a['id'];
+});
 
-                    foreach(array_slice($tasks,0,20) as $task){
+$stt=1;
 
-                    $progress=$task['count']."/".$task['max'];
+foreach(array_slice($tasks,0,20) as $task){
 
-                    echo "<tr>
-                    <td>{$stt}</td>
-                    <td>{$task['name']}</td>
-                    <td>{$task['id']}</td>
-                    <td>{$task['task_name']}</td>
-                    <td>{$progress}</td>
-                    </tr>";
+$progress=$task['count']."/".$task['max'];
 
-                    $stt++;
+echo "<tr>
+<td>{$stt}</td>
+<td>{$task['name']}</td>
+<td>{$task['id']}</td>
+<td>{$task['task_name']}</td>
+<td>{$progress}</td>
+</tr>";
 
-                    }
+$stt++;
 
-                    ?>
+}
 
-                    </tbody>
-                    </table> -->
- <!-- TOP LEO THÁP -->
+?>
+
+</tbody>
+</table>
+-->
+
+
+
+<!-- TOP LEO THÁP (MỚI) -->
 
 <table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
 <thead>
@@ -421,6 +428,7 @@ $stt++;
 
 </tbody>
 </table>
+
 <!-- TOP BANG HỘI -->
 
 <table class="table table-striped table-hover table-bordered mt-3 text-center" id="banghoi1">
