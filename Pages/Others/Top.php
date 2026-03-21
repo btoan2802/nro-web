@@ -371,7 +371,7 @@ $stt++;
 
 <!-- TOP LEO THÁP (MỚI) -->
 
-<table class="table table-striped table-hover table-bordered mt-3 text-center" id="nhiemvu1">
+<table class="table table-striped table-hover table-bordered mt-3 text-center" id="leothap">
 <thead>
 <tr>
 <th>TOP</th>
