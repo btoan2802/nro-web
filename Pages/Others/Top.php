@@ -126,11 +126,11 @@ display:none;
 <!-- TOP NẠP -->
 
 <?php
-$query="SELECT player.name AS character_name,account.tong_nap_server AS danap
+$query="SELECT player.name AS character_name,account.danap AS danap
 FROM account
 LEFT JOIN player ON account.id=player.account_id
 WHERE account.is_admin = 0
-ORDER BY account.tong_nap_server DESC
+ORDER BY account.danap DESC
 LIMIT 20";
 
 $stmt=$conn->prepare($query);
