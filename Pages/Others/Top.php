@@ -181,7 +181,10 @@ echo '</tbody></table>';
 $query="
 SELECT 
 player.name,
-CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(player.chuyen_sinh_su_phu,'[',-1),',',1) AS UNSIGNED) AS chuyensinh
+(
+  CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(player.chuyen_sinh_su_phu,'[',-1),',',1) AS UNSIGNED)
+  - player.chuyensinh_base
+) AS chuyensinh
 FROM player
 JOIN account ON player.account_id = account.id
 WHERE account.is_admin = 0
